@@ -2,13 +2,42 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<h2>Register for {{ event.name }}</h2>
-    <p><strong>Date:</strong> {{ event.date }}</p>
-    <p><strong>Registration Fee:</strong> ₹{{ event.registration_fee }}</p>
+<div class="row justify-content-center my-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-body" style="padding:2.5rem;">
+                <p style="color:var(--brand);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;">
+                    Event Registration
+                </p>
+                <h2 style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:1.5rem;">
+                    {{ event.name }}
+                </h2>
 
-    <form method="POST" action="{% url 'process_payment' event.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-    
+                <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;">
+                    <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:rgba(255,87,34,0.06);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                        <i class="fas fa-calendar-alt" style="color:var(--brand);width:16px;"></i>
+                        <span style="color:var(--text-secondary);font-size:0.9rem;"><strong style="color:var(--text-primary);">Date:</strong> {{ event.date }}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:rgba(255,87,34,0.06);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                        <i class="fas fa-ticket-alt" style="color:var(--brand);width:16px;"></i>
+                        <span style="color:var(--text-secondary);font-size:0.9rem;"><strong style="color:var(--text-primary);">Registration Fee:</strong> ₹{{ event.registration_fee }}</span>
+                    </div>
+                </div>
+
+                <form method="POST" action="{% url 'process_payment' event.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-block" style="padding:0.85rem;font-size:1rem;">
+                        <i class="fas fa-bolt mr-2"></i>Confirm & Pay
+                    </button>
+                </form>
+
+                <p style="text-align:center;margin-top:1rem;">
+                    <a href="{% url 'event_list' %}" style="color:var(--text-muted);font-size:0.88rem;">
+                        <i class="fas fa-arrow-left mr-1"></i>Back to Events
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

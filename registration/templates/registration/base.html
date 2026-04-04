@@ -3,61 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sportify - Find and register for the best sports events, venues, and coaching programs near you.">
     <title>Sportify</title>
 
-    <!-- Load static tag -->
     {% load static %}
 
-    <!-- Link to Bootstrap CSS and custom styles -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand d-flex align-items-center" href="/">
+
+    <!-- ── Navbar ── -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
             <img src="{% static 'img/logo.png' %}" alt="Sportify Logo" class="navbar-logo">
-            <span class="ml-2">Sportify</span>
+            <span>Sport<span class="brand-sport">ify</span></span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/sports_venues">Sports Venues</a></li>
-                <li class="nav-item"><a class="nav-link" href="/coaching">Coaching</a></li>
-                <li class="nav-item"><a class="nav-link" href="/events">Events</a></li>
-                <li class="nav-item"><a class="nav-link" href="/societies">Societies</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            <ul class="navbar-nav ml-auto align-items-lg-center" style="gap:0.25rem;">
+                <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home fa-sm mr-1"></i>Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sports_venues"><i class="fas fa-map-marker-alt fa-sm mr-1"></i>Venues</a></li>
+                <li class="nav-item"><a class="nav-link" href="/coaching"><i class="fas fa-dumbbell fa-sm mr-1"></i>Coaching</a></li>
+                <li class="nav-item"><a class="nav-link" href="/events"><i class="fas fa-calendar-alt fa-sm mr-1"></i>Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="/societies"><i class="fas fa-users fa-sm mr-1"></i>Societies</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i class="fas fa-info-circle fa-sm mr-1"></i>About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact"><i class="fas fa-envelope fa-sm mr-1"></i>Contact</a></li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-item ml-lg-2">
+                        <a class="nav-link nav-btn" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt fa-sm mr-1"></i>Logout
+                        </a>
+                    </li>
                 {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item ml-lg-1">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    <li class="nav-item ml-lg-1">
+                        <a class="nav-link nav-btn" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt fa-sm mr-1"></i>Login
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
     </nav>
-    
-    <div class="container mt-5">
+
+    <!-- ── Page Content ── -->
+    <div class="container mt-5 mb-5">
         {% block content %}
         {% endblock %}
     </div>
 
-    <footer class="bg-dark text-white mt-5 p-4 text-center">
-        <p>© 2025 Sportify | <a href="#" class="text-white">Privacy Policy</a></p>
-        <p>Follow us on: 
-            <a href="#" class="text-white">Facebook</a> | 
-            <a href="#" class="text-white">Twitter</a> | 
-            <a href="#" class="text-white">Instagram</a>
+    <!-- ── Footer ── -->
+    <footer>
+        <p style="font-size:1.1rem; font-weight:700; font-family:'Outfit',sans-serif; color:#f0f0f5; margin-bottom:0.5rem;">
+            <span style="color:#ff5722;">Sport</span>ify
+        </p>
+        <p>© 2025 Sportify · <a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+        <p class="footer-social mt-2">
+            <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
         </p>
     </footer>
 
-    <!-- Include Bootstrap JS and custom JS -->
+    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

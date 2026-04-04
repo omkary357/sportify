@@ -1,21 +1,38 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center mb-4">Contact Us</h2>
-    <p class="text-center">We’d love to hear from you! Reach out to us via the details below or use the form to send a message.</p>
+<div class="my-4">
+    <p class="section-heading">Contact Us</p>
+    <p class="section-sub">We'd love to hear from you — reach out via the details below</p>
+    <div class="section-divider"></div>
+</div>
 
-    <!-- Display Company Contact Details -->
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
-            <h4>{{ company_info.name }}</h4>
-            <p>Email: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
-            <p>Phone: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
-            <p>Mobile: <a href="tel:{{ company_info.mobile }}">{{ company_info.mobile }}</a></p>
-            <p>Address: {{ company_info.address }}</p>
-            <p>Website: <a href="https://{{ company_info.website }}" target="_blank">{{ company_info.website }}</a></p>
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="contact-info-card">
+            <h4><i class="fas fa-building mr-2"></i>{{ company_info.name }}</h4>
+
+            <p>
+                <i class="fas fa-envelope mr-2" style="color:var(--brand);"></i>
+                <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a>
+            </p>
+            <p>
+                <i class="fas fa-phone mr-2" style="color:var(--brand);"></i>
+                <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a>
+            </p>
+            <p>
+                <i class="fas fa-mobile-alt mr-2" style="color:var(--brand);"></i>
+                <a href="tel:{{ company_info.mobile }}">{{ company_info.mobile }}</a>
+            </p>
+            <p>
+                <i class="fas fa-map-marker-alt mr-2" style="color:var(--brand);"></i>
+                {{ company_info.address }}
+            </p>
+            <p>
+                <i class="fas fa-globe mr-2" style="color:var(--brand);"></i>
+                <a href="https://{{ company_info.website }}" target="_blank">{{ company_info.website }}</a>
+            </p>
         </div>
     </div>
-
-
-{% endblock %}/*
+</div>
+{% endblock %}

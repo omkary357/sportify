@@ -1,30 +1,44 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<h2>Societies and Their Coaches</h2>
+<div class="my-4">
+    <p class="section-heading">Societies & Coaches</p>
+    <p class="section-sub">Explore sports societies and meet the coaches behind them</p>
+    <div class="section-divider"></div>
+</div>
+
 <div class="container">
     <div class="row">
         {% for society in societies %}
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card h-100">
                 <img src="{{ society.image.url }}" class="card-img-top" alt="{{ society.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ society.name }}</h5>
-                    <p><strong>Location:</strong> {{ society.location }}</p>
-                    <p><strong>Description:</strong> {{ society.description }}</p>
-                    <h6>Coaches:</h6>
-                    <ul>
+                    <p><i class="fas fa-map-marker-alt mr-1" style="color:var(--brand);"></i><strong>Location:</strong> {{ society.location }}</p>
+                    <p class="card-text">{{ society.description }}</p>
+
+                    <h6 style="color:var(--brand-light);font-weight:700;margin-top:1rem;margin-bottom:0.5rem;">
+                        <i class="fas fa-chalkboard-teacher mr-1"></i>Coaches
+                    </h6>
+                    <ul style="list-style:none;padding:0;margin:0;">
                         {% for coach in society.coaches.all %}
-                        <li>{{ coach.coach_name }} - {{ coach.title }}</li>
+                        <li style="color:var(--text-secondary);font-size:0.9rem;padding:0.25rem 0;border-bottom:1px solid var(--border);">
+                            <i class="fas fa-user mr-1" style="color:var(--text-muted);"></i>
+                            {{ coach.coach_name }}
+                            <span style="color:var(--text-muted);"> · {{ coach.title }}</span>
+                        </li>
                         {% empty %}
-                        <li>No coaches available</li>
+                        <li style="color:var(--text-muted);font-size:0.88rem;">No coaches listed.</li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>No societies found.</p>
+        <div class="col-12 text-center py-5">
+            <p style="color:var(--text-secondary);font-size:1.1rem;">No societies found at the moment.</p>
+        </div>
         {% endfor %}
     </div>
 </div>

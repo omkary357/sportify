@@ -1,19 +1,28 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<h2>Coaching Sessions</h2>
+<div class="my-4">
+    <p class="section-heading">Coaching Sessions</p>
+    <p class="section-sub">Train with expert coaches and take your game to the next level</p>
+    <div class="section-divider"></div>
+</div>
+
 <div class="container">
     <div class="row">
         {% for coaching in coachings %}
-        <div class="col-md-4">
-            <div class="card mb-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
                 <img src="{{ coaching.image.url }}" class="card-img-top" alt="{{ coaching.title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ coaching.title }}</h5>
-                    <p><strong>Coach:</strong> {{ coaching.coach_name }}</p>
-                    <p>{{ coaching.description }}</p>
+                    <p><i class="fas fa-user-tie mr-1" style="color:var(--brand);"></i><strong>Coach:</strong> {{ coaching.coach_name }}</p>
+                    <p class="card-text">{{ coaching.description }}</p>
                 </div>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p style="color:var(--text-secondary);font-size:1.1rem;">No coaching sessions available right now.</p>
         </div>
         {% endfor %}
     </div>

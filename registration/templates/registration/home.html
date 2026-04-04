@@ -1,31 +1,43 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="jumbotron text-center bg-primary text-black">
-    <h1>Welcome to Sportify</h1>
-    <p>Find and register for the best sports events near you!</p>
 
-    <!-- Show login message if user is authenticated -->
+<!-- ── Hero Section ── -->
+<div class="jumbotron text-center">
+    <p style="color:var(--brand);font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem;">
+        🏆 Your Sports Platform
+    </p>
+    <h1>Welcome to Sportify</h1>
+    <p>Find and register for the best sports events, coaching sessions, and venues near you.</p>
+
     {% if user.is_authenticated %}
-        {% comment %} <p class="text-success">You are logged in as {{ user.username }}!</p> {% endcomment %}
+        <p style="color:var(--accent);font-weight:600;font-size:1rem;">
+            👋 Welcome back, {{ user.username }}!
+        </p>
     {% else %}
-        <a href="/login" class="btn btn-light btn-lg">Login to Register</a>
+        <a href="/login" class="btn btn-light btn-lg">
+            <i class="fas fa-bolt mr-2"></i>Get Started
+        </a>
     {% endif %}
 </div>
 
-<!-- Upcoming Events Carousel Section -->
+<!-- ── Upcoming Events Carousel ── -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">Upcoming Events</h2>
-    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="3000"> <!-- 3 seconds interval -->
+    <p class="section-heading">Upcoming Events</p>
+    <p class="section-sub">Don't miss out on exciting sports events happening near you</p>
+    <div class="section-divider"></div>
+
+    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="3500">
         <div class="carousel-inner">
             {% for event in events %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ event.image.url }}" class="d-block w-100" alt="{{ event.name }}" style="object-fit: cover; height: 400px;">
-                    <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.5);"> <!-- Semi-transparent background -->
+                    <img src="{{ event.image.url }}" class="d-block w-100" alt="{{ event.name }}">
+                    <div class="carousel-caption d-none d-md-block">
                         <h5>{{ event.name }}</h5>
-                        <p>{{ event.date }} at {{ event.venue }}</p>
-                        <a href="{% url 'register_event' event.id %}" class="btn btn-primary">Register</a>
+                        <p><i class="fas fa-calendar-alt mr-1"></i>{{ event.date }} &nbsp;·&nbsp; <i class="fas fa-map-marker-alt mr-1"></i>{{ event.venue }}</p>
+                        <a href="{% url 'register_event' event.id %}" class="btn btn-primary">
+                            <i class="fas fa-arrow-right mr-1"></i>Register Now
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -41,56 +53,69 @@
     </div>
 </div>
 
-
-
-<!-- How It Works Section -->
+<!-- ── How It Works ── -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">How It Works</h2>
+    <p class="section-heading">How It Works</p>
+    <p class="section-sub">Three simple steps to get you on the field</p>
+    <div class="section-divider"></div>
+
     <div class="row text-center">
-        <div class="col-md-4">
-            <i class="fas fa-search fa-3x mb-3"></i>
-            <h4>Find Events</h4>
-            <p>Search for sports events happening near you.</p>
+        <div class="col-md-4 mb-4">
+            <div class="how-it-works-card">
+                <div class="icon-wrap">🔍</div>
+                <h4>Find Events</h4>
+                <p>Browse sports events, venues, and coaching sessions happening near you.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <i class="fas fa-pencil-alt fa-3x mb-3"></i>
-            <h4>Register</h4>
-            <p>Sign up for your favorite events easily.</p>
+        <div class="col-md-4 mb-4">
+            <div class="how-it-works-card">
+                <div class="icon-wrap">✍️</div>
+                <h4>Register</h4>
+                <p>Sign up with a single click and complete your registration securely.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <i class="fas fa-trophy fa-3x mb-3"></i>
-            <h4>Participate</h4>
-            <p>Join the event and showcase your skills.</p>
+        <div class="col-md-4 mb-4">
+            <div class="how-it-works-card">
+                <div class="icon-wrap">🏆</div>
+                <h4>Participate</h4>
+                <p>Show up, compete, and showcase your skills to the world.</p>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Contact Section -->
+<!-- ── Contact Form ── -->
 <div class="container my-5">
-    <h2 class="text-center mb-4">Contact Us</h2>
-    <p class="text-center mb-4">We’d love to hear from you! Please fill out the form below, and we’ll get in touch with you shortly.</p>
+    <p class="section-heading">Get In Touch</p>
+    <p class="section-sub">We'd love to hear from you — fill out the form below</p>
+    <div class="section-divider"></div>
 
-    <form method="POST" class="contact-form">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name">Your Name <span class="text-danger">*</span></label>
-            <input type="text" name="name" id="name" class="form-control" required>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <form method="POST" class="contact-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Your Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address <span class="text-danger">*</span></label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number <span class="text-danger">*</span></label>
+                    <input type="text" name="mobile" id="mobile" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message <span class="text-danger">*</span></label>
+                    <textarea name="message" id="message" class="form-control" rows="4" placeholder="Tell us how we can help..." required></textarea>
+                </div>
+                <button type="submit">
+                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                </button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="email">Your Email <span class="text-danger">*</span></label>
-            <input type="email" name="email" id="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="mobile">Your Mobile No. <span class="text-danger">*</span></label>
-            <input type="text" name="mobile" id="mobile" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Your Message <span class="text-danger">*</span></label>
-            <textarea name="message" id="message" class="form-control" rows="2" required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-    </form>
+    </div>
 </div>
 
 {% endblock %}

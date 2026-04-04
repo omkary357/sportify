@@ -2,20 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to Sportify to register for events and more.">
+    <title>Login · Sportify</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Adjust the path accordingly -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <div class="login-container">
         <div class="login-form">
-            <h2>Login</h2>
+            <!-- Brand mark -->
+            <p style="text-align:center;font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:900;margin-bottom:0.5rem;">
+                <span style="color:#ff5722;">Sport</span>ify
+            </p>
+            <h2>Welcome <span>Back</span></h2>
+            <p class="form-subheading">Sign in to your account to continue</p>
+
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Login</button>
+                <button type="submit">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Login
+                </button>
             </form>
-            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a>.</p>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
         </div>
     </div>
 </body>

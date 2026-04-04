@@ -2,21 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Sportify account to access events, venues, and coaching.">
+    <title>Register · Sportify</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Adjust the path accordingly -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-form">
-            <h2>Register</h2>
+            <!-- Brand mark -->
+            <p style="text-align:center;font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:900;margin-bottom:0.5rem;">
+                <span style="color:#ff5722;">Sport</span>ify
+            </p>
+            <h2>Create <span style="color:var(--brand);">Account</span></h2>
+            <p class="form-subheading">Join thousands of sports enthusiasts</p>
+
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Register</button>
+                <button type="submit">
+                    <i class="fas fa-user-plus mr-2"></i>Create Account
+                </button>
             </form>
-            <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
         </div>
     </div>
 </body>

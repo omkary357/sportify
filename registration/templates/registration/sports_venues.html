@@ -1,27 +1,35 @@
 {% extends 'registration/base.html' %}
-{% load static %}  <!-- Load static files here -->
 
 {% block content %}
-<h2>Sports Venues</h2>
+<div class="my-4">
+    <p class="section-heading">Sports Venues</p>
+    <p class="section-sub">Discover top-rated sports facilities near you</p>
+    <div class="section-divider"></div>
+</div>
+
 <div class="container">
     <div class="row">
         {% for venue in venues %}
         <div class="col-md-4 mb-4">
-            <div class="card">
+            <div class="card h-100">
                 {% if venue.image %}
                 <img src="{{ venue.image.url }}" class="card-img-top" alt="{{ venue.name }}">
                 {% else %}
-                <img src="{% static 'path/to/default/image.png' %}" class="card-img-top" alt="Default Image">  <!-- Placeholder image -->
+                <div style="height:200px;background:linear-gradient(135deg,rgba(255,87,34,0.2),rgba(13,14,19,0.8));display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-map-marked-alt fa-3x" style="color:var(--brand);opacity:0.6;"></i>
+                </div>
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ venue.name }}</h5>
-                    <p><strong>Location:</strong> {{ venue.location }}</p>
-                    <p><strong>Description:</strong> {{ venue.description }}</p>
+                    <p><i class="fas fa-map-marker-alt mr-1" style="color:var(--brand);"></i><strong>Location:</strong> {{ venue.location }}</p>
+                    <p class="card-text">{{ venue.description }}</p>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p>No sports venues found.</p>
+        <div class="col-12 text-center py-5">
+            <p style="color:var(--text-secondary);font-size:1.1rem;">No sports venues found at the moment.</p>
+        </div>
         {% endfor %}
     </div>
 </div>

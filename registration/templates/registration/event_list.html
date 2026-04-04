@@ -1,45 +1,48 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-<h2>Upcoming Events</h2>
+<div class="my-4">
+    <p class="section-heading">Upcoming Events</p>
+    <p class="section-sub">Register for the sports events happening near you</p>
+    <div class="section-divider"></div>
+</div>
+
 <div class="container">
     <div class="row">
         {% for event in events %}
-        <div class="col-md-4">
-            <div class="card mb-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
                 <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }}">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ event.name }}</h5>
-                    <p><strong>Date:</strong> {{ event.date }}</p>
-                    <p><strong>Venue:</strong> {{ event.venue }}</p>
-                    <p>{{ event.description }}</p>
-                    <p><strong>Registration Fee:</strong> ₹{{ event.registration_fee }}</p>
+                    <p><i class="fas fa-calendar-alt mr-1" style="color:var(--brand);"></i><strong>Date:</strong> {{ event.date }}</p>
+                    <p><i class="fas fa-map-marker-alt mr-1" style="color:var(--brand);"></i><strong>Venue:</strong> {{ event.venue }}</p>
+                    <p class="card-text flex-grow-1">{{ event.description }}</p>
+                    <p><i class="fas fa-ticket-alt mr-1" style="color:var(--accent);"></i><strong>Fee:</strong> ₹{{ event.registration_fee }}</p>
 
-                    {% if user.is_authenticated %}
-
-                        {% if event.id in registered_event_ids %}
-                            <!-- Already registered: show label instead of button -->
-                            <span class="badge badge-success"
-                                  style="padding: 6px 12px; font-size: 0.9rem;">
-                                Registered
-                            </span>
+                    <div class="mt-auto pt-2">
+                        {% if user.is_authenticated %}
+                            {% if event.id in registered_event_ids %}
+                                <span class="badge badge-success">
+                                    <i class="fas fa-check mr-1"></i>Registered
+                                </span>
+                            {% else %}
+                                <a href="{% url 'register_event' event.id %}" class="btn btn-primary btn-block">
+                                    <i class="fas fa-bolt mr-1"></i>Register
+                                </a>
+                            {% endif %}
                         {% else %}
-                            <!-- Not registered: show Register button -->
-                            <a href="{% url 'register_event' event.id %}" class="btn btn-primary">
-                                Register
+                            <a href="{% url 'login' %}?next={% url 'register_event' event.id %}" class="btn btn-primary btn-block">
+                                <i class="fas fa-sign-in-alt mr-1"></i>Login to Register
                             </a>
                         {% endif %}
-
-                    {% else %}
-                        <!-- Not logged in: ask to login -->
-                        <a href="{% url 'login' %}?next={% url 'register_event' event.id %}"
-                           class="btn btn-primary">
-                            Login to Register
-                        </a>
-                    {% endif %}
-
+                    </div>
                 </div>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p style="color:var(--text-secondary);font-size:1.1rem;">No upcoming events at the moment. Check back soon!</p>
         </div>
         {% endfor %}
     </div>
